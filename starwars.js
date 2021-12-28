@@ -6,12 +6,13 @@
 
 import { play } from "./music.js"
 import roman from "./roman.js"
+import friendlyFetch from "./friendly-fetch.js"
 
 const API_ENDPOINT = 'https://swapi.dev/api'
 
 async function getFilmsOrderedByEpisodeId() {
-    const response = await fetch(`${API_ENDPOINT}/films`)
-    return (await response.json()).results
+    const films = await friendlyFetch(`${API_ENDPOINT}/films`)
+    return films.results
         .sort((f1, f2) => f1.episode_id - f2.episode_id)
 }
 
