@@ -7,6 +7,7 @@
 import { play } from "./music.js"
 import roman from "./roman.js"
 import friendlyFetch from "./friendly-fetch.js"
+import { restartAnimation } from "./restart-animation.js"
 
 const API_ENDPOINT = 'https://swapi.dev/api'
 
@@ -25,6 +26,12 @@ async function showFilms() {
     films.forEach(film => {
         const li = document.createElement('li')
         li.innerHTML = `Episode ${roman[film.episode_id - 1].padEnd(3, ' ')} - ${film.title}`
+        li.addEventListener('click', function (e) {
+            const intro = document.querySelector('pre.introducao')
+            intro.innerHTML = `Episode ${roman[film.episode_id - 1]}\n${film.title.toUpperCase()}\n\n${film.opening_crawl}`
+
+            restartAnimation(intro)
+        })
         ul.appendChild(li)
     })
 }
